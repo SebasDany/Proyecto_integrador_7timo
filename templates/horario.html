@@ -1,0 +1,155 @@
+
+{% extends 'base.html' %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-4">
+      {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+        <div class="card card-body">
+<form action="{{url_for('insert_horario')}}" method="POST">
+          <span class="input-group-text">Docentes :</span>
+          <div class="input-group">
+          <select name="iddocente" class="custom-select"  aria-label="Example select with button addon">
+          <option selected>Choose...</option>
+              {% for contact in contacts %}
+           <option value={{contact.0}}>{{contact.1}}</option>
+          {% endfor %}
+         </select>
+          </div>
+
+
+          <span class="input-group-text">Materias :</span>
+            <div class="input-group">
+          <select name="idmateria" class="custom-select"  aria-label="Example select with button addon">
+          <option selected>Choose...</option>
+              {% for contac in contact %}
+           <option value={{contac.0}}>{{contac.1}}</option>
+          {% endfor %}
+         </select>
+          </div>
+       <span class="input-group-text">Escoger el dia:</span>
+          <div class="input-group">
+          <select name="nday" class="custom-select"  aria-label="Example select with button addon">
+          <option selected value="Lunes">Lunes</option>
+           <option value="Martes">Martes</option>
+          <option value="Miercoles">Miercoles</option>
+          <option value="Jueves">Jueves</option>
+              <option value="Viernes">Viernes</option>
+         </select>
+          </div>
+            <span class="input-group-text">Hora de inicio:</span>
+          <div class="input-group">
+          <select name="inicio" class="custom-select"  aria-label="Example select with button addon">
+          <option selected value="8">8:00</option>
+           <option value="9">9:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+              <option value="12">12:00</option>
+              <option value="13">13:00</option>
+              <option value="14">14:00</option>
+              <option value="15">15:00</option>
+              <option value="16">16:00</option>
+              <option value="17">17:00</option>
+
+         </select>
+          </div>
+
+             <span class="input-group-text">Hora final:</span>
+          <div class="input-group">
+          <select name="salida" class="custom-select"  aria-label="Example select with button addon">
+          <option selected value="8">8:00</option>
+           <option value="9">9:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+              <option value="12">12:00</option>
+              <option value="13">13:00</option>
+              <option value="14">14:00</option>
+              <option value="15">15:00</option>
+              <option value="16">16:00</option>
+              <option value="17">17:00</option>
+         </select>
+          </div>
+   <span class="input-group-text">Grupo :</span>
+          <div class="input-group">
+          <select name="idgrupo" class="custom-select"  aria-label="Example select with button addon">
+          <option selected value="G 1">Grupo 1</option>
+           <option value="G 2">Grupo 2</option>
+          <option value="G 3">Grupo 3</option>
+          <option value="G 4">Grupo 4</option>
+         </select>
+          </div>
+    <span class="input-group-text">Aula / Laboratorio :</span>
+          <div class="input-group">
+          <select name="aulab" class="custom-select"  aria-label="Example select with button addon">
+              {% for contact in au %}
+          <option value='A {{contact.0}}'>Aula {{contact.0}}</option>
+              {% endfor %}
+              {% for l in lab %}
+          <option value='L {{l.0}}'>Laboratorio{{l.0}}</option>
+              {% endfor %}
+
+         </select>
+          </div>
+
+           <div class="form-group">
+            <button class="btn btn-primary btn-block"  >
+            Registrar
+          </button></div>
+
+
+            </form></div>
+
+
+</div>
+
+<div class="col-md-4">
+
+<fieldset ><legend> Tabla de registro de horarios</legend>
+          <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Docente </th>
+            <th>Materia</th>
+              <th>Hora inicio</th>
+              <th>Hora salida</th>
+
+              <th>Dia</th>
+              <th>Grupo</th>
+              <th>Aula / Laboratorio</th>
+              <th>Operacion</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact in horarios %}
+          <tr>
+            <td>{{contact.0}}</td>
+            <td>{{contact.1}}</td>
+            <td>{{contact.2}}</td>
+              <td>{{contact.3}}:00</td>
+              <td>{{contact.4}}:00</td>
+              <td>{{contact.5}}</td>
+              <td>{{contact.6}}</td>
+              <td>{{contact.7}}</td>
+            <td>
+              <a href="#" class="btn btn-secondary">Editar </a>
+              <a href="#" class="btn btn-danger btn-delete">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+          </table></fieldset>
+  </div></div>
+{% endblock %}
